@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      /* Backgrounds & Surfaces */
+      --color-bg-base:       #FAFAF8;
+      --color-bg-surface:    #FFFFFF;
+      --color-bg-subtle:     #F4F2ED;
+      --color-bg-dark:       #0D0B18;
+      --color-bg-dark-mid:   #1A1730;
+      --color-bg-dark-card:  #241F38;
+
+      /* Text */
+      --color-text-primary:    #0D0B18;
+      --color-text-secondary:  #6B6774;
+      --color-text-tertiary:   #A39EAD;
+      --color-text-inverse:    #FFFFFF;
+      --color-text-inverse-dim:#BDB8CC;
+
+      /* Accent */
+      --color-accent:       #7C5CFC;
+      --color-accent-hover: #6544EA;
+      --color-accent-light: #EEE9FF;
+      --color-accent-dark:  #A68DFF;
+
+      /* Semantic */
+      --color-success: #1DB87A;
+      --color-warning: #F5A623;
+      --color-error:   #E5484D;
+
+      /* Borders */
+      --color-border-subtle:  #EDEAE3;
+      --color-border-default: #D9D5CC;
+      --color-border-dark:    #2E2945;
+      --color-border-accent:  #7C5CFC;
+
+      /* Typography */
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-sans:    'Inter', system-ui, sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+
+      /* Spacing */
+      --space-1:  4px;
+      --space-2:  8px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-5:  20px;
+      --space-6:  24px;
+      --space-8:  32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+      --space-24: 96px;
+      --space-30: 120px;
+      --space-40: 160px;
+
+      /* Border Radius */
+      --radius-xs:   2px;
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   12px;
+      --radius-xl:   16px;
+      --radius-2xl:  24px;
+      --radius-3xl:  32px;
+      --radius-pill: 9999px;
+
+      /* Shadows */
+      --shadow-xs:    0 1px 2px rgba(13,11,24,0.05);
+      --shadow-sm:    0 2px 8px rgba(13,11,24,0.07);
+      --shadow-md:    0 4px 20px rgba(13,11,24,0.09);
+      --shadow-lg:    0 8px 40px rgba(13,11,24,0.11);
+      --shadow-xl:    0 16px 64px rgba(13,11,24,0.14);
+      --shadow-float: 0 24px 80px rgba(13,11,24,0.18);
+      --shadow-glow:  0 0 40px rgba(124,92,252,0.20);
+      --shadow-inset: inset 0 1px 2px rgba(13,11,24,0.06);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--color-text-primary);
+      background: var(--color-bg-base);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+    @media (max-width: 768px) { .container { padding: 0 var(--space-4); } }
+
+    /* ============================================================
+       GALLERY HEADER
+       ============================================================ */
+    .gallery-header {
+      background: var(--color-bg-dark);
+      padding: var(--space-20) 0 var(--space-16);
+      text-align: center;
+    }
+    .gallery-header__eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--color-accent-dark);
+      margin-bottom: var(--space-3);
+    }
+    .gallery-header__title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 400; color: var(--color-text-inverse);
+      margin-bottom: var(--space-4);
+    }
+    .gallery-header__sub {
+      font-size: 18px; color: var(--color-text-inverse-dim);
+      max-width: 480px; margin: 0 auto var(--space-3);
+    }
+    .gallery-header__meta {
+      font-size: 12px; color: var(--color-text-tertiary);
+      font-family: var(--font-mono);
+    }
+
+    /* ============================================================
+       JUMP NAV
+       ============================================================ */
+    .jump-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,248,.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .jump-nav__inner {
+      display: flex; align-items: center; gap: 2px;
+      overflow-x: auto; padding: 0 var(--space-6);
+      height: 52px; scrollbar-width: none;
+    }
+    .jump-nav__inner::-webkit-scrollbar { display: none; }
+    .jump-nav__link {
+      white-space: nowrap; font-size: 13px; font-weight: 500;
+      color: var(--color-text-secondary); text-decoration: none;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      transition: all .15s ease; flex-shrink: 0;
+    }
+    .jump-nav__link:hover { color: var(--color-accent); background: var(--color-accent-light); }
+    .jump-nav__sep { color: var(--color-border-default); font-size: 12px; flex-shrink: 0; padding: 0 var(--space-1); }
+
+    /* ============================================================
+       SECTION STRUCTURE
+       ============================================================ */
+    .gallery-section { padding: var(--space-20) 0; border-bottom: 1px solid var(--color-border-subtle); }
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--color-accent);
+      margin-bottom: var(--space-2);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 400; color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+    }
+    .section-desc {
+      font-size: 16px; color: var(--color-text-secondary);
+      max-width: 600px; margin-bottom: var(--space-12);
+      line-height: 1.7;
+    }
+    .subsection { margin-bottom: var(--space-16); }
+    .subsection:last-child { margin-bottom: 0; }
+    .subsection-title {
+      font-size: 12px; font-weight: 600; letter-spacing: .07em;
+      text-transform: uppercase; color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    /* ============================================================
+       PREVIEW CARD WRAPPER
+       ============================================================ */
+    .preview-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+    }
+    .preview-card:last-child { margin-bottom: 0; }
+    .preview-card--subtle { background: var(--color-bg-subtle); border-color: transparent; }
+    .preview-card--dark   { background: var(--color-bg-dark); border-color: var(--color-border-dark); }
+    .preview-card__label {
+      font-size: 11px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--color-text-tertiary);
+      margin-bottom: var(--space-6);
+    }
+    .preview-card__note {
+      font-size: 13px; color: var(--color-text-secondary);
+      margin-top: var(--space-6); padding-top: var(--space-5);
+      border-top: 1px solid var(--color-border-subtle);
+      line-height: 1.6;
+    }
+    .preview-card--dark .preview-card__note {
+      color: var(--color-text-inverse-dim);
+      border-top-color: var(--color-border-dark);
+    }
+
+    /* State row helpers */
+    .state-row { display: flex; flex-wrap: wrap; gap: var(--space-5); align-items: flex-end; }
+    .state-item { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+    .state-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: .04em; }
+
+    /* Grid helpers */
+    .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: var(--space-6); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-6); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-4); }
+    @media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+    .mb-6 { margin-bottom: var(--space-6); }
+    .mb-8 { margin-bottom: var(--space-8); }
+
+    /* ============================================================
+       1.1 COLOR SWATCHES
+       ============================================================ */
+    .color-group { margin-bottom: var(--space-8); }
+    .color-group:last-child { margin-bottom: 0; }
+    .color-group-label {
+      font-size: 12px; font-weight: 600; color: var(--color-text-secondary);
+      margin-bottom: var(--space-4); letter-spacing: .04em;
+    }
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: var(--space-4); }
+    .color-swatch { display: flex; flex-direction: column; }
+    .color-swatch__tile {
+      height: 72px; border-radius: var(--radius-lg);
+      border: 1px solid rgba(0,0,0,.06);
+      margin-bottom: var(--space-2);
+    }
+    .color-swatch__name  { font-size: 12px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; }
+    .color-swatch__hex   { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-secondary); }
+    .color-swatch__use   { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+
+    /* ============================================================
+       1.2 TYPOGRAPHY
+       ============================================================ */
+    .type-scale { display: flex; flex-direction: column; }
+    .type-row {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: var(--space-6); align-items: baseline;
+      padding: var(--space-6) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta__name { font-size: 12px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 3px; }
+    .type-meta__spec { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); line-height: 1.6; }
+    @media (max-width: 600px) { .type-row { grid-template-columns: 1fr; gap: var(--space-2); } }
+
+    /* ============================================================
+       1.3 SPACING
+       ============================================================ */
+    .spacing-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .spacing-row { display: grid; grid-template-columns: 120px 1fr 52px; align-items: center; gap: var(--space-4); }
+    .spacing-row__label { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-secondary); }
+    .spacing-row__bar-wrap { height: 20px; display: flex; align-items: center; }
+    .spacing-row__bar {
+      height: 12px; background: var(--color-accent-light);
+      border: 1px solid var(--color-accent); border-radius: var(--radius-xs); min-width: 3px;
+    }
+    .spacing-row__px { font-size: 11px; color: var(--color-text-tertiary); text-align: right; font-family: var(--font-mono); }
+    @media (max-width: 600px) { .spacing-row { grid-template-columns: 100px 1fr 44px; } }
+
+    /* ============================================================
+       1.4 BORDER RADIUS
+       ============================================================ */
+    .radius-grid { display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: flex-end; }
+    .radius-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); }
+    .radius-box {
+      background: var(--color-accent-light);
+      border: 1.5px solid var(--color-accent);
+      width: 64px; height: 64px;
+    }
+    .radius-label { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-secondary); text-align: center; line-height: 1.5; }
+
+    /* ============================================================
+       1.5 SHADOWS
+       ============================================================ */
+    .shadow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: var(--space-10); }
+    .shadow-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+    .shadow-box { background: var(--color-bg-surface); border-radius: var(--radius-lg); width: 100%; height: 72px; }
+    .shadow-label { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-secondary); text-align: center; line-height: 1.5; }
+
+    /* ============================================================
+       1.6 BORDERS & SURFACES
+       ============================================================ */
+    .border-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-4); }
+    .border-item {
+      padding: var(--space-5); border-radius: var(--radius-lg);
+      background: var(--color-bg-surface);
+    }
+    .border-item__name { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+    .border-item__spec { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-secondary); line-height: 1.5; }
+    .border-item__use  { font-size: 11px; color: var(--color-text-tertiary); margin-top: 4px; }
+
+    .surface-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-4); }
+    .surface-item {
+      padding: var(--space-5); border-radius: var(--radius-lg);
+      border: 1px solid rgba(0,0,0,.06);
+      min-height: 88px; display: flex; flex-direction: column; justify-content: flex-end; gap: 3px;
+    }
+    .surface-item__name { font-size: 12px; font-weight: 500; }
+    .surface-item__hex  { font-family: var(--font-mono); font-size: 11px; }
+    .surface-item__use  { font-size: 11px; opacity: .7; margin-top: 2px; }
+
+    /* ============================================================
+       1.7 GRID DIAGRAM
+       ============================================================ */
+    .grid-demo {
+      display: grid; grid-template-columns: repeat(12,1fr);
+      gap: 8px; margin-bottom: var(--space-6);
+    }
+    .grid-col { height: 44px; background: var(--color-accent-light); border-radius: var(--radius-sm); border: 1px solid rgba(124,92,252,.2); }
+    .grid-specs { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+    .grid-spec { display: flex; flex-direction: column; gap: 3px; }
+    .grid-spec__label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--color-text-tertiary); }
+    .grid-spec__value { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-primary); }
+
+    /* ============================================================
+       1.8 MOTION
+       ============================================================ */
+    .motion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .motion-item {
+      background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg); padding: var(--space-5);
+    }
+    .motion-item__name  { font-size: 13px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 3px; }
+    .motion-item__value { font-family: var(--font-mono); font-size: 11px; color: var(--color-accent); margin-bottom: var(--space-3); }
+    .motion-item__desc  { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+    .duration-row { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+    .dur-chip {
+      background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-pill); padding: var(--space-2) var(--space-4);
+      font-family: var(--font-mono); font-size: 12px; color: var(--color-text-primary);
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+    }
+    .dur-chip span { font-size: 10px; color: var(--color-text-tertiary); }
+
+    /* ============================================================
+       COMPONENT: BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: var(--space-2); font-family: var(--font-sans); font-weight: 600;
+      letter-spacing: -.01em; border: none; cursor: pointer;
+      text-decoration: none; transition: all .2s ease;
+      white-space: nowrap; border-radius: var(--radius-pill);
+    }
+    .btn--sm { height: 36px; padding: 0 var(--space-4); font-size: 13px; }
+    .btn--md { height: 44px; padding: 0 var(--space-6); font-size: 15px; }
+    .btn--lg { height: 52px; padding: 0 var(--space-8); font-size: 16px; }
+
+    .btn--primary { background: var(--color-accent); color: #fff; }
+    .btn--primary:hover  { background: var(--color-accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn--primary:active { background: var(--color-accent-hover); transform: translateY(0); }
+    .btn--primary:disabled { background: var(--color-bg-subtle); color: var(--color-text-tertiary); cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .btn--secondary { background: transparent; color: var(--color-accent); border: 1.5px solid var(--color-accent); }
+    .btn--secondary:hover  { background: var(--color-accent-light); transform: translateY(-1px); }
+    .btn--secondary:active { background: var(--color-accent-light); transform: translateY(0); }
+    .btn--secondary:disabled { border-color: var(--color-border-default); color: var(--color-text-tertiary); cursor: not-allowed; transform: none; }
+
+    .btn--tertiary { background: transparent; color: var(--color-accent); padding-left: var(--space-3); padding-right: var(--space-3); }
+    .btn--tertiary:hover  { background: var(--color-accent-light); }
+    .btn--tertiary:disabled { color: var(--color-text-tertiary); cursor: not-allowed; }
+
+    /* Icon button */
+    .btn-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border: none; cursor: pointer;
+      border-radius: var(--radius-lg); transition: all .2s ease;
+      font-size: 18px; line-height: 1; background: none;
+    }
+    .btn-icon--filled { background: var(--color-accent); color: #fff; }
+    .btn-icon--filled:hover { background: var(--color-accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-icon--ghost  { background: transparent; color: var(--color-text-secondary); border: 1px solid var(--color-border-default); }
+    .btn-icon--ghost:hover  { background: var(--color-bg-subtle); color: var(--color-accent); border-color: var(--color-accent); }
+    .btn-icon:disabled { opacity: .35; cursor: not-allowed; transform: none !important; }
+
+    /* ============================================================
+       COMPONENT: TAGS
+       ============================================================ */
+    .tag {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: 12px; font-weight: 500;
+      padding: 5px var(--space-3); border-radius: var(--radius-pill);
+      background: var(--color-accent-light); color: var(--color-accent);
+      white-space: nowrap; border: 1px solid transparent;
+      transition: all .15s ease;
+    }
+    .tag--interactive { cursor: pointer; }
+    .tag--interactive:hover { background: var(--color-accent); color: #fff; }
+    .tag--active  { background: var(--color-accent); color: #fff; }
+    .tag--neutral { background: var(--color-bg-subtle); color: var(--color-text-secondary); }
+    .tag--neutral.tag--interactive:hover { background: var(--color-accent-light); color: var(--color-accent); }
+
+    /* ============================================================
+       COMPONENT: LINKS
+       ============================================================ */
+    .link {
+      color: var(--color-accent); text-decoration: none; font-weight: 500;
+      position: relative; display: inline-flex; align-items: center; gap: 4px;
+      transition: color .2s ease;
+    }
+    .link::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 1px; background: var(--color-accent);
+      transform: scaleX(0); transform-origin: left; transition: transform .2s ease;
+    }
+    .link:hover::after { transform: scaleX(1); }
+    .link--nav { color: var(--color-text-secondary); font-size: 15px; }
+    .link--nav:hover { color: var(--color-text-primary); }
+    .link--nav::after { background: var(--color-text-primary); }
+
+    /* ============================================================
+       COMPONENT: DIVIDERS
+       ============================================================ */
+    .divider { border: none; border-top: 1px solid var(--color-border-subtle); }
+    .divider--labeled {
+      display: flex; align-items: center; gap: var(--space-4);
+      color: var(--color-text-tertiary); font-size: 12px;
+      font-weight: 500; letter-spacing: .04em;
+    }
+    .divider--labeled::before, .divider--labeled::after {
+      content: ''; flex: 1; height: 1px; background: var(--color-border-subtle);
+    }
+
+    /* ============================================================
+       COMPONENT: SECTION HEADER
+       ============================================================ */
+    .sec-header { margin-bottom: var(--space-10); }
+    .sec-header__eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--color-accent); margin-bottom: var(--space-2);
+    }
+    .sec-header__headline {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400; color: var(--color-text-primary);
+      line-height: 1.15; margin-bottom: var(--space-4);
+    }
+    .sec-header__sub {
+      font-size: 17px; color: var(--color-text-secondary);
+      max-width: 520px; line-height: 1.7;
+    }
+    .sec-header--center { text-align: center; }
+    .sec-header--center .sec-header__sub { margin: 0 auto; }
+    .sec-header--inverse .sec-header__headline { color: var(--color-text-inverse); }
+    .sec-header--inverse .sec-header__sub { color: var(--color-text-inverse-dim); }
+
+    /* ============================================================
+       COMPONENT: STAT CARD
+       ============================================================ */
+    .stat-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-xl); padding: var(--space-6);
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .stat-card__icon  { font-size: 18px; margin-bottom: var(--space-1); }
+    .stat-card__value {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 400; color: var(--color-text-primary); line-height: 1;
+    }
+    .stat-card__label { font-size: 14px; color: var(--color-text-secondary); line-height: 1.5; }
+    .stat-card--dark  { background: var(--color-bg-dark-card); border-color: var(--color-border-dark); }
+    .stat-card--dark .stat-card__value { color: var(--color-accent-dark); }
+    .stat-card--dark .stat-card__label { color: var(--color-text-inverse-dim); }
+
+    /* ============================================================
+       COMPONENT: TESTIMONIAL CARD
+       ============================================================ */
+    .t-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+      display: flex; flex-direction: column; gap: var(--space-6);
+    }
+    .t-card__quote { font-size: 16px; line-height: 1.75; color: var(--color-text-primary); font-style: italic; }
+    .t-card__author { display: flex; align-items: center; gap: var(--space-3); }
+    .t-card__avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--color-bg-subtle); border: 1px solid var(--color-border-subtle);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .t-card__name { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+    .t-card__role { font-size: 13px; color: var(--color-text-secondary); }
+
+    /* ============================================================
+       COMPONENT: MOCKUP CONTAINER
+       ============================================================ */
+    .mockup {
+      border-radius: var(--radius-3xl); overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mockup--light  { background: var(--color-bg-subtle); }
+    .mockup--dark   { background: var(--color-bg-dark-mid); }
+    .mockup--border { background: var(--color-bg-surface); border: 1px solid var(--color-border-default); }
+    .mockup__inner {
+      width: 100%; aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: var(--space-3);
+    }
+    .mockup__ph { font-size: 12px; color: var(--color-text-tertiary); text-align: center; line-height: 1.5; }
+    .mockup--dark .mockup__ph { color: var(--color-text-inverse-dim); }
+
+    /* ============================================================
+       GALLERY FOOTER
+       ============================================================ */
+    .gallery-footer {
+      background: var(--color-bg-dark);
+      padding: var(--space-12) 0;
+      text-align: center;
+    }
+    .gallery-footer p {
+      font-size: 12px; color: var(--color-text-tertiary);
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     GALLERY HEADER
+     ============================================================ -->
+<header class="gallery-header">
+  <div class="container">
+    <p class="gallery-header__eyebrow">Product Designer Portfolio</p>
+    <h1 class="gallery-header__title">Design System Gallery.</h1>
+    <p class="gallery-header__sub">A unified visual language — premium, editorial, product-first.</p>
+    <p class="gallery-header__meta">v1.0 · April 2026 · Foundations + Shared Components</p>
+  </div>
+</header>
+
+<!-- JUMP NAV -->
+<nav class="jump-nav" aria-label="Gallery navigation">
+  <div class="jump-nav__inner">
+    <a class="jump-nav__link" href="#foundations">Foundations</a>
+    <span class="jump-nav__sep">·</span>
+    <a class="jump-nav__link" href="#color">Color</a>
+    <a class="jump-nav__link" href="#typography">Type</a>
+    <a class="jump-nav__link" href="#spacing">Spacing</a>
+    <a class="jump-nav__link" href="#radius">Radius</a>
+    <a class="jump-nav__link" href="#shadows">Shadows</a>
+    <a class="jump-nav__link" href="#borders">Borders</a>
+    <a class="jump-nav__link" href="#grid">Grid</a>
+    <a class="jump-nav__link" href="#motion">Motion</a>
+    <span class="jump-nav__sep">·</span>
+    <a class="jump-nav__link" href="#shared">Shared</a>
+    <a class="jump-nav__link" href="#buttons">Buttons</a>
+    <a class="jump-nav__link" href="#tags">Tags &amp; Links</a>
+    <a class="jump-nav__link" href="#cards">Cards</a>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     SECTION 1: DESIGN FOUNDATIONS
+     ============================================================ -->
+<section class="gallery-section" id="foundations">
+  <div class="container">
+    <p class="section-label">Section 01</p>
+    <h2 class="section-title">Design Foundations.</h2>
+    <p class="section-desc">The core visual language. Color, type, space, depth. Build with tokens — never with raw values.</p>
+
+    <!-- 1.1 COLOR -->
+    <div class="subsection" id="color">
+      <h3 class="subsection-title">1.1 — Color Palette</h3>
+      <div class="preview-card">
+
+        <div class="color-group">
+          <p class="color-group-label">Backgrounds &amp; Surfaces</p>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#FAFAF8;"></div>
+              <p class="color-swatch__name">bg-base</p>
+              <p class="color-swatch__hex">#FAFAF8</p>
+              <p class="color-swatch__use">Page bg</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#FFFFFF;"></div>
+              <p class="color-swatch__name">bg-surface</p>
+              <p class="color-swatch__hex">#FFFFFF</p>
+              <p class="color-swatch__use">Cards, modals</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#F4F2ED;"></div>
+              <p class="color-swatch__name">bg-subtle</p>
+              <p class="color-swatch__hex">#F4F2ED</p>
+              <p class="color-swatch__use">Alt section fill</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#0D0B18;"></div>
+              <p class="color-swatch__name">bg-dark</p>
+              <p class="color-swatch__hex">#0D0B18</p>
+              <p class="color-swatch__use">Hero, footer</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#1A1730;"></div>
+              <p class="color-swatch__name">bg-dark-mid</p>
+              <p class="color-swatch__hex">#1A1730</p>
+              <p class="color-swatch__use">Dark sections</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#241F38;"></div>
+              <p class="color-swatch__name">bg-dark-card</p>
+              <p class="color-swatch__hex">#241F38</p>
+              <p class="color-swatch__use">Dark cards</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-group">
+          <p class="color-group-label">Text</p>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#0D0B18;"></div>
+              <p class="color-swatch__name">text-primary</p>
+              <p class="color-swatch__hex">#0D0B18</p>
+              <p class="color-swatch__use">Headings, body</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#6B6774;"></div>
+              <p class="color-swatch__name">text-secondary</p>
+              <p class="color-swatch__hex">#6B6774</p>
+              <p class="color-swatch__use">Subtext, captions</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#A39EAD;"></div>
+              <p class="color-swatch__name">text-tertiary</p>
+              <p class="color-swatch__hex">#A39EAD</p>
+              <p class="color-swatch__use">Placeholders</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#FFFFFF; border:1px solid #EDEAE3;"></div>
+              <p class="color-swatch__name">text-inverse</p>
+              <p class="color-swatch__hex">#FFFFFF</p>
+              <p class="color-swatch__use">On dark bg</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#BDB8CC;"></div>
+              <p class="color-swatch__name">inverse-dim</p>
+              <p class="color-swatch__hex">#BDB8CC</p>
+              <p class="color-swatch__use">Secondary on dark</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-group">
+          <p class="color-group-label">Accent</p>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#7C5CFC;"></div>
+              <p class="color-swatch__name">accent</p>
+              <p class="color-swatch__hex">#7C5CFC</p>
+              <p class="color-swatch__use">CTA, links</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#6544EA;"></div>
+              <p class="color-swatch__name">accent-hover</p>
+              <p class="color-swatch__hex">#6544EA</p>
+              <p class="color-swatch__use">Hover state</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#EEE9FF;"></div>
+              <p class="color-swatch__name">accent-light</p>
+              <p class="color-swatch__hex">#EEE9FF</p>
+              <p class="color-swatch__use">Tag fill, tint</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#A68DFF;"></div>
+              <p class="color-swatch__name">accent-dark</p>
+              <p class="color-swatch__hex">#A68DFF</p>
+              <p class="color-swatch__use">On dark surface</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-group">
+          <p class="color-group-label">Semantic</p>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#1DB87A;"></div>
+              <p class="color-swatch__name">success</p>
+              <p class="color-swatch__hex">#1DB87A</p>
+              <p class="color-swatch__use">Positive</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#F5A623;"></div>
+              <p class="color-swatch__name">warning</p>
+              <p class="color-swatch__hex">#F5A623</p>
+              <p class="color-swatch__use">Caution</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#E5484D;"></div>
+              <p class="color-swatch__name">error</p>
+              <p class="color-swatch__hex">#E5484D</p>
+              <p class="color-swatch__use">Error</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-group">
+          <p class="color-group-label">Borders</p>
+          <div class="color-grid">
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#EDEAE3;"></div>
+              <p class="color-swatch__name">border-subtle</p>
+              <p class="color-swatch__hex">#EDEAE3</p>
+              <p class="color-swatch__use">Hairlines</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#D9D5CC;"></div>
+              <p class="color-swatch__name">border-default</p>
+              <p class="color-swatch__hex">#D9D5CC</p>
+              <p class="color-swatch__use">Visible borders</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#2E2945;"></div>
+              <p class="color-swatch__name">border-dark</p>
+              <p class="color-swatch__hex">#2E2945</p>
+              <p class="color-swatch__use">On dark surfaces</p>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__tile" style="background:#7C5CFC;"></div>
+              <p class="color-swatch__name">border-accent</p>
+              <p class="color-swatch__hex">#7C5CFC</p>
+              <p class="color-swatch__use">Focus, active</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="preview-card__note">One accent color throughout. No gradients on interactive elements. Dark surfaces use the -dark and -dim text variants to maintain contrast. Semantic colors are used for status states only — never for decoration.</p>
+      </div>
+    </div>
+
+    <!-- 1.2 TYPOGRAPHY -->
+    <div class="subsection" id="typography">
+      <h3 class="subsection-title">1.2 — Typography Scale</h3>
+      <div class="preview-card">
+        <div class="type-scale">
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Display 2XL</p>
+              <p class="type-meta__spec">DM Serif Display<br>clamp(72–120px)<br>wt 400 · −0.03em</p>
+            </div>
+            <div style="font-family:'DM Serif Display',Georgia,serif;font-size:clamp(44px,6vw,80px);font-weight:400;letter-spacing:-.03em;line-height:1.05;color:var(--color-text-primary);">Good design speaks.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Display XL</p>
+              <p class="type-meta__spec">DM Serif Display<br>clamp(56–88px)<br>wt 400 · −0.03em</p>
+            </div>
+            <div style="font-family:'DM Serif Display',Georgia,serif;font-size:clamp(32px,4.5vw,60px);font-weight:400;letter-spacing:-.03em;line-height:1.1;color:var(--color-text-primary);">Product Designer.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Display LG</p>
+              <p class="type-meta__spec">DM Serif Display<br>clamp(40–64px)<br>wt 400 · −0.025em</p>
+            </div>
+            <div style="font-family:'DM Serif Display',Georgia,serif;font-size:clamp(26px,3.5vw,44px);font-weight:400;letter-spacing:-.025em;line-height:1.15;color:var(--color-text-primary);">Selected Work, 2024.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Headline</p>
+              <p class="type-meta__spec">Inter<br>clamp(28–40px)<br>wt 700 · −0.02em</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:clamp(20px,2.5vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.2;color:var(--color-text-primary);">A smarter approach to user research.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Title LG</p>
+              <p class="type-meta__spec">Inter · 24px<br>wt 600 · −0.01em</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.3;color:var(--color-text-primary);">Redesigning the onboarding flow.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Title</p>
+              <p class="type-meta__spec">Inter · 20px<br>wt 600 · −0.01em</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1.35;color:var(--color-text-primary);">Research &amp; discovery phase.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Body LG</p>
+              <p class="type-meta__spec">Inter · 18px<br>wt 400 · lh 1.75</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:18px;font-weight:400;line-height:1.75;color:var(--color-text-secondary);max-width:580px;">I design digital products that balance user needs with business goals — with a focus on clarity, craft, and measurable outcomes.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Body</p>
+              <p class="type-meta__spec">Inter · 16px<br>wt 400 · lh 1.65</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:16px;font-weight:400;line-height:1.65;color:var(--color-text-secondary);max-width:560px;">Through user interviews, we identified three core pain points that shaped the entire design direction going forward.</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Body SM</p>
+              <p class="type-meta__spec">Inter · 14px<br>wt 400 · lh 1.6</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:14px;font-weight:400;line-height:1.6;color:var(--color-text-secondary);">Role: Lead Product Designer · Duration: 4 months · Platform: iOS &amp; Web</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Caption</p>
+              <p class="type-meta__spec">Inter · 13px<br>wt 500 · +0.01em</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--color-text-tertiary);">Figure 3 — Final onboarding flow, v4</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-meta">
+              <p class="type-meta__name">Label</p>
+              <p class="type-meta__spec">Inter · 11px<br>wt 600 · +0.08em<br>UPPERCASE</p>
+            </div>
+            <div style="font-family:'Inter',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent);">Case Study · Product Design</div>
+          </div>
+
+        </div>
+        <p class="preview-card__note">Display sizes use DM Serif Display (wt 400) for editorial character. All UI text uses Inter. Clamp-based display sizes scale fluidly between 375–1440px. Avoid setting display text at fixed sizes — always use clamp().</p>
+      </div>
+    </div>
+
+    <!-- 1.3 SPACING -->
+    <div class="subsection" id="spacing">
+      <h3 class="subsection-title">1.3 — Spacing System</h3>
+      <div class="preview-card">
+        <div class="spacing-list">
+          <div class="spacing-row"><span class="spacing-row__label">--space-1</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:4px;"></div></div><span class="spacing-row__px">4px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-2</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:8px;"></div></div><span class="spacing-row__px">8px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-3</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:12px;"></div></div><span class="spacing-row__px">12px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-4</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:16px;"></div></div><span class="spacing-row__px">16px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-5</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:20px;"></div></div><span class="spacing-row__px">20px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-6</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:24px;"></div></div><span class="spacing-row__px">24px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-8</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:32px;"></div></div><span class="spacing-row__px">32px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-10</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:40px;"></div></div><span class="spacing-row__px">40px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-12</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:48px;"></div></div><span class="spacing-row__px">48px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-16</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:64px;"></div></div><span class="spacing-row__px">64px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-20</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:80px;"></div></div><span class="spacing-row__px">80px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-24</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:96px;"></div></div><span class="spacing-row__px">96px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-30</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:120px;"></div></div><span class="spacing-row__px">120px</span></div>
+          <div class="spacing-row"><span class="spacing-row__label">--space-40</span><div class="spacing-row__bar-wrap"><div class="spacing-row__bar" style="width:160px;"></div></div><span class="spacing-row__px">160px</span></div>
+        </div>
+        <p class="preview-card__note">8px base grid. Use space-20–space-40 for section-level vertical rhythm. Use space-4–space-12 for component internals. Never use raw pixel values in components — always reference a token.</p>
+      </div>
+    </div>
+
+    <!-- 1.4 BORDER RADIUS -->
+    <div class="subsection" id="radius">
+      <h3 class="subsection-title">1.4 — Border Radius</h3>
+      <div class="preview-card">
+        <div class="radius-grid">
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:2px;"></div>
+            <p class="radius-label">--radius-xs<br>2px · inline labels</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:4px;"></div>
+            <p class="radius-label">--radius-sm<br>4px · badges</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:8px;"></div>
+            <p class="radius-label">--radius-md<br>8px · inputs</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:12px;"></div>
+            <p class="radius-label">--radius-lg<br>12px · small cards</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:16px;"></div>
+            <p class="radius-label">--radius-xl<br>16px · cards, panels</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:24px;"></div>
+            <p class="radius-label">--radius-2xl<br>24px · large panels</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:32px;"></div>
+            <p class="radius-label">--radius-3xl<br>32px · mockup frames</p>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:9999px; width:64px; height:32px;"></div>
+            <p class="radius-label">--radius-pill<br>9999px · buttons, chips</p>
+          </div>
+        </div>
+        <p class="preview-card__note">Radius scales with element size — small elements use smaller radii. Pill is reserved exclusively for buttons and chip components. Never apply radius-3xl to a text-only element.</p>
+      </div>
+    </div>
+
+    <!-- 1.5 SHADOWS -->
+    <div class="subsection" id="shadows">
+      <h3 class="subsection-title">1.5 — Shadows</h3>
+      <div class="preview-card preview-card--subtle">
+        <div class="shadow-grid">
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:0 1px 2px rgba(13,11,24,.05);"></div>
+            <p class="shadow-label">shadow-xs<br>Subtle lift</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:0 2px 8px rgba(13,11,24,.07);"></div>
+            <p class="shadow-label">shadow-sm<br>Card resting</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:0 4px 20px rgba(13,11,24,.09);"></div>
+            <p class="shadow-label">shadow-md<br>Card hover</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:0 8px 40px rgba(13,11,24,.11);"></div>
+            <p class="shadow-label">shadow-lg<br>Panels</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:0 16px 64px rgba(13,11,24,.14);"></div>
+            <p class="shadow-label">shadow-xl<br>Modals</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:0 24px 80px rgba(13,11,24,.18);"></div>
+            <p class="shadow-label">shadow-float<br>Floating UI</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:0 0 40px rgba(124,92,252,.22);"></div>
+            <p class="shadow-label">shadow-glow<br>CTA / hero</p>
+          </div>
+          <div class="shadow-item">
+            <div class="shadow-box" style="box-shadow:inset 0 1px 2px rgba(13,11,24,.06);"></div>
+            <p class="shadow-label">shadow-inset<br>Recessed / inputs</p>
+          </div>
+        </div>
+        <p class="preview-card__note" style="border-top-color:var(--color-border-default);">Elevation increases as elements get closer to the viewer. shadow-xl and float are for overlays only. shadow-glow is accent-only, used sparingly on hero CTAs. Avoid stacking multiple shadows on one element.</p>
+      </div>
+    </div>
+
+    <!-- 1.6 BORDERS & SURFACES -->
+    <div class="subsection" id="borders">
+      <h3 class="subsection-title">1.6 — Borders &amp; Surface Styles</h3>
+
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Border Styles</p>
+        <div class="border-grid">
+          <div class="border-item" style="border:1px solid #EDEAE3;">
+            <p class="border-item__name">Hairline</p>
+            <p class="border-item__spec">1px solid<br>#EDEAE3</p>
+            <p class="border-item__use">Dividers, ghost cards</p>
+          </div>
+          <div class="border-item" style="border:1px solid #D9D5CC;">
+            <p class="border-item__name">Default</p>
+            <p class="border-item__spec">1px solid<br>#D9D5CC</p>
+            <p class="border-item__use">Standard card borders</p>
+          </div>
+          <div class="border-item" style="border:1px solid #2E2945; background:var(--color-bg-dark-card);">
+            <p class="border-item__name" style="color:#fff;">Dark</p>
+            <p class="border-item__spec" style="color:var(--color-text-inverse-dim);">1px solid<br>#2E2945</p>
+            <p class="border-item__use" style="color:#A39EAD;">Dark surface cards</p>
+          </div>
+          <div class="border-item" style="border:1.5px solid #7C5CFC;">
+            <p class="border-item__name">Accent</p>
+            <p class="border-item__spec">1.5px solid<br>#7C5CFC</p>
+            <p class="border-item__use">Active, focus</p>
+          </div>
+          <div class="border-item" style="border:1px dashed #D9D5CC;">
+            <p class="border-item__name">Dashed</p>
+            <p class="border-item__spec">1px dashed<br>#D9D5CC</p>
+            <p class="border-item__use">Drop zones</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card">
+        <p class="preview-card__label">Surface Fills</p>
+        <div class="surface-grid">
+          <div class="surface-item" style="background:#FAFAF8;">
+            <p class="surface-item__name" style="color:var(--color-text-primary);">bg-base</p>
+            <p class="surface-item__hex" style="color:var(--color-text-secondary);">#FAFAF8</p>
+            <p class="surface-item__use" style="color:var(--color-text-tertiary);">Page background</p>
+          </div>
+          <div class="surface-item" style="background:#FFFFFF;">
+            <p class="surface-item__name" style="color:var(--color-text-primary);">bg-surface</p>
+            <p class="surface-item__hex" style="color:var(--color-text-secondary);">#FFFFFF</p>
+            <p class="surface-item__use" style="color:var(--color-text-tertiary);">Cards, modals only</p>
+          </div>
+          <div class="surface-item" style="background:#F4F2ED;">
+            <p class="surface-item__name" style="color:var(--color-text-primary);">bg-subtle</p>
+            <p class="surface-item__hex" style="color:var(--color-text-secondary);">#F4F2ED</p>
+            <p class="surface-item__use" style="color:var(--color-text-tertiary);">Alternate sections</p>
+          </div>
+          <div class="surface-item" style="background:#0D0B18; border-color:#2E2945;">
+            <p class="surface-item__name" style="color:#fff;">bg-dark</p>
+            <p class="surface-item__hex" style="color:var(--color-text-inverse-dim);">#0D0B18</p>
+            <p class="surface-item__use" style="color:#A39EAD;">Hero, footer</p>
+          </div>
+          <div class="surface-item" style="background:#1A1730; border-color:#2E2945;">
+            <p class="surface-item__name" style="color:#fff;">bg-dark-mid</p>
+            <p class="surface-item__hex" style="color:var(--color-text-inverse-dim);">#1A1730</p>
+            <p class="surface-item__use" style="color:#A39EAD;">Dark sections</p>
+          </div>
+          <div class="surface-item" style="background:#241F38; border-color:#2E2945;">
+            <p class="surface-item__name" style="color:#fff;">bg-dark-card</p>
+            <p class="surface-item__hex" style="color:var(--color-text-inverse-dim);">#241F38</p>
+            <p class="surface-item__use" style="color:#A39EAD;">Cards on dark bg</p>
+          </div>
+        </div>
+        <p class="preview-card__note">Sections alternate: bg-base → bg-subtle → bg-dark. bg-surface is cards and modals only — never section backgrounds. Dark surface cards always use bg-dark-card, not bg-dark or bg-dark-mid.</p>
+      </div>
+    </div>
+
+    <!-- 1.7 GRID -->
+    <div class="subsection" id="grid">
+      <h3 class="subsection-title">1.7 — Grid &amp; Layout</h3>
+      <div class="preview-card">
+        <p class="preview-card__label">12-Column Desktop Grid</p>
+        <div class="grid-demo">
+          <div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div>
+          <div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div>
+          <div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div>
+          <div class="grid-col"></div><div class="grid-col"></div><div class="grid-col"></div>
+        </div>
+        <div class="grid-specs">
+          <div class="grid-spec"><p class="grid-spec__label">Columns</p><p class="grid-spec__value">12</p></div>
+          <div class="grid-spec"><p class="grid-spec__label">Gutter — desktop</p><p class="grid-spec__value">24px</p></div>
+          <div class="grid-spec"><p class="grid-spec__label">Gutter — mobile</p><p class="grid-spec__value">16px</p></div>
+          <div class="grid-spec"><p class="grid-spec__label">Max-width content</p><p class="grid-spec__value">1200px</p></div>
+          <div class="grid-spec"><p class="grid-spec__label">Max-width full-bleed</p><p class="grid-spec__value">1440px</p></div>
+          <div class="grid-spec"><p class="grid-spec__label">Mobile breakpoint</p><p class="grid-spec__value">768px</p></div>
+          <div class="grid-spec"><p class="grid-spec__label">Section padding</p><p class="grid-spec__value">80–160px vertical</p></div>
+        </div>
+        <p class="preview-card__note">Body copy max-width: 6 columns (~65ch). Hero headlines: 8–10 columns. Full-bleed images extend to page edge past max-width. Project card grids: 3-col desktop → 2-col tablet → 1-col mobile.</p>
+      </div>
+    </div>
+
+    <!-- 1.8 MOTION -->
+    <div class="subsection" id="motion">
+      <h3 class="subsection-title">1.8 — Motion &amp; Interaction</h3>
+      <div class="preview-card">
+        <p class="preview-card__label" style="margin-bottom:var(--space-5);">Easing Curves</p>
+        <div class="motion-grid mb-8">
+          <div class="motion-item">
+            <p class="motion-item__name">ease-out</p>
+            <p class="motion-item__value">cubic-bezier(0.0, 0.0, 0.2, 1)</p>
+            <p class="motion-item__desc">Elements entering. Fast start, soft landing. Default for reveals and hover enter.</p>
+          </div>
+          <div class="motion-item">
+            <p class="motion-item__name">ease-in</p>
+            <p class="motion-item__value">cubic-bezier(0.4, 0.0, 1, 1)</p>
+            <p class="motion-item__desc">Elements exiting. Smooth start, fast exit. Dismiss and close transitions.</p>
+          </div>
+          <div class="motion-item">
+            <p class="motion-item__name">ease-in-out</p>
+            <p class="motion-item__value">cubic-bezier(0.4, 0.0, 0.2, 1)</p>
+            <p class="motion-item__desc">Visible-to-visible state changes. Position shifts and reorder animations.</p>
+          </div>
+          <div class="motion-item">
+            <p class="motion-item__name">spring</p>
+            <p class="motion-item__value">cubic-bezier(0.34, 1.56, 0.64, 1)</p>
+            <p class="motion-item__desc">Slight overshoot. Used sparingly on interactive moments — hover lifts, CTA press.</p>
+          </div>
+        </div>
+
+        <p class="preview-card__label" style="margin-bottom:var(--space-4);">Duration Scale</p>
+        <div class="duration-row">
+          <div class="dur-chip">100ms<span>Micro</span></div>
+          <div class="dur-chip">150ms<span>Fast</span></div>
+          <div class="dur-chip">200ms<span>Default</span></div>
+          <div class="dur-chip">300ms<span>Medium</span></div>
+          <div class="dur-chip">350ms<span>Enter</span></div>
+          <div class="dur-chip">500ms<span>Emphasis</span></div>
+        </div>
+        <p class="preview-card__note">100–150ms: hover color changes. 200ms: button press, card lift. 350ms: scroll-triggered reveals. 500ms: hero animations only. Always respect prefers-reduced-motion — disable all decorative transitions.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 2: SHARED COMPONENTS
+     ============================================================ -->
+<section class="gallery-section" id="shared" style="background:var(--color-bg-subtle);">
+  <div class="container">
+    <p class="section-label">Section 02</p>
+    <h2 class="section-title">Shared Components.</h2>
+    <p class="section-desc">Reusable building blocks used across all pages. Shown with all relevant variants and interaction states.</p>
+
+    <!-- 2A BUTTONS -->
+    <div class="subsection" id="buttons">
+      <h3 class="subsection-title">2A — Buttons &amp; Actions</h3>
+
+      <!-- Primary -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Primary Button</p>
+        <div class="mb-8">
+          <p class="state-label" style="margin-bottom:var(--space-4);">States</p>
+          <div class="state-row">
+            <div class="state-item">
+              <button class="btn btn--primary btn--md">View work</button>
+              <span class="state-label">Default</span>
+            </div>
+            <div class="state-item">
+              <button class="btn btn--primary btn--md" style="background:var(--color-accent-hover);transform:translateY(-1px);box-shadow:var(--shadow-md);">View work</button>
+              <span class="state-label">Hover</span>
+            </div>
+            <div class="state-item">
+              <button class="btn btn--primary btn--md" style="background:var(--color-accent-hover);">View work</button>
+              <span class="state-label">Active</span>
+            </div>
+            <div class="state-item">
+              <button class="btn btn--primary btn--md" disabled>View work</button>
+              <span class="state-label">Disabled</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="state-label" style="margin-bottom:var(--space-4);">Sizes</p>
+          <div class="state-row" style="align-items:center;">
+            <div class="state-item"><button class="btn btn--primary btn--sm">View work</button><span class="state-label">Small · 36px</span></div>
+            <div class="state-item"><button class="btn btn--primary btn--md">View work</button><span class="state-label">Medium · 44px</span></div>
+            <div class="state-item"><button class="btn btn--primary btn--lg">View work</button><span class="state-label">Large · 52px</span></div>
+          </div>
+        </div>
+        <p class="preview-card__note">Electric violet fill. Used for the single most important action per section. Never place two primary buttons side-by-side. Hover lifts 1px and applies shadow-md. Pill radius always.</p>
+      </div>
+
+      <!-- Secondary -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Secondary Button</p>
+        <div class="mb-8">
+          <p class="state-label" style="margin-bottom:var(--space-4);">States</p>
+          <div class="state-row">
+            <div class="state-item">
+              <button class="btn btn--secondary btn--md">View case study</button>
+              <span class="state-label">Default</span>
+            </div>
+            <div class="state-item">
+              <button class="btn btn--secondary btn--md" style="background:var(--color-accent-light);transform:translateY(-1px);">View case study</button>
+              <span class="state-label">Hover</span>
+            </div>
+            <div class="state-item">
+              <button class="btn btn--secondary btn--md" style="background:var(--color-accent-light);">View case study</button>
+              <span class="state-label">Active</span>
+            </div>
+            <div class="state-item">
+              <button class="btn btn--secondary btn--md" disabled>View case study</button>
+              <span class="state-label">Disabled</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="state-label" style="margin-bottom:var(--space-4);">Sizes</p>
+          <div class="state-row" style="align-items:center;">
+            <div class="state-item"><button class="btn btn--secondary btn--sm">View case study</button><span class="state-label">Small</span></div>
+            <div class="state-item"><button class="btn btn--secondary btn--md">View case study</button><span class="state-label">Medium</span></div>
+            <div class="state-item"><button class="btn btn--secondary btn--lg">View case study</button><span class="state-label">Large</span></div>
+          </div>
+        </div>
+        <p class="preview-card__note">Outlined accent border, transparent fill. Always pairs with a primary button in CTA groups. Hover fills with accent-light. Never the sole CTA in a section.</p>
+      </div>
+
+      <!-- Tertiary -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Tertiary / Text Button</p>
+        <div class="state-row">
+          <div class="state-item"><button class="btn btn--tertiary btn--md">Learn more →</button><span class="state-label">Default</span></div>
+          <div class="state-item"><button class="btn btn--tertiary btn--md" style="background:var(--color-accent-light);">Learn more →</button><span class="state-label">Hover</span></div>
+          <div class="state-item"><button class="btn btn--tertiary btn--md" disabled>Learn more →</button><span class="state-label">Disabled</span></div>
+        </div>
+        <p class="preview-card__note">No border or fill. Low-priority inline actions — "Learn more", "See all", project card arrows. Hover fills accent-light for feedback without visual weight.</p>
+      </div>
+
+      <!-- Icon Button -->
+      <div class="preview-card">
+        <p class="preview-card__label">Icon Button</p>
+        <div class="mb-8">
+          <p class="state-label" style="margin-bottom:var(--space-4);">Filled variant</p>
+          <div class="state-row">
+            <div class="state-item"><button class="btn-icon btn-icon--filled">→</button><span class="state-label">Default</span></div>
+            <div class="state-item"><button class="btn-icon btn-icon--filled" style="background:var(--color-accent-hover);transform:translateY(-1px);box-shadow:var(--shadow-md);">→</button><span class="state-label">Hover</span></div>
+            <div class="state-item"><button class="btn-icon btn-icon--filled" disabled>→</button><span class="state-label">Disabled</span></div>
+          </div>
+        </div>
+        <div>
+          <p class="state-label" style="margin-bottom:var(--space-4);">Ghost variant</p>
+          <div class="state-row">
+            <div class="state-item"><button class="btn-icon btn-icon--ghost">↗</button><span class="state-label">Default</span></div>
+            <div class="state-item"><button class="btn-icon btn-icon--ghost" style="background:var(--color-bg-subtle);color:var(--color-accent);border-color:var(--color-accent);">↗</button><span class="state-label">Hover</span></div>
+            <div class="state-item"><button class="btn-icon btn-icon--ghost" disabled>↗</button><span class="state-label">Disabled</span></div>
+          </div>
+        </div>
+        <p class="preview-card__note">44×44px minimum touch target. Used for nav actions, project card arrows, next/prev navigation. Filled for primary icon actions; ghost for secondary. Always pair with a tooltip for accessibility.</p>
+      </div>
+    </div>
+
+    <!-- 2B TAGS, LINKS, DIVIDERS -->
+    <div class="subsection" id="tags">
+      <h3 class="subsection-title">2B — Tags, Links &amp; Dividers</h3>
+
+      <!-- Tags -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Tags / Chips</p>
+        <div class="mb-8">
+          <p class="state-label" style="margin-bottom:var(--space-4);">Accent variant</p>
+          <div class="state-row">
+            <div class="state-item"><span class="tag">Product Design</span><span class="state-label">Default</span></div>
+            <div class="state-item"><span class="tag" style="background:var(--color-accent);color:#fff;">Interactive ↗</span><span class="state-label">Hover</span></div>
+            <div class="state-item"><span class="tag tag--active">Selected</span><span class="state-label">Active</span></div>
+          </div>
+        </div>
+        <div class="mb-8">
+          <p class="state-label" style="margin-bottom:var(--space-4);">Neutral variant</p>
+          <div class="state-row">
+            <div class="state-item"><span class="tag tag--neutral">Figma</span><span class="state-label">Default</span></div>
+            <div class="state-item"><span class="tag tag--neutral" style="background:var(--color-accent-light);color:var(--color-accent);">Figma</span><span class="state-label">Hover</span></div>
+          </div>
+        </div>
+        <div>
+          <p class="state-label" style="margin-bottom:var(--space-4);">In context — project card tags</p>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);">
+            <span class="tag">Product Design</span>
+            <span class="tag tag--neutral">iOS &amp; Web</span>
+            <span class="tag tag--neutral">2024</span>
+            <span class="tag tag--neutral">Figma</span>
+            <span class="tag">Case Study</span>
+          </div>
+        </div>
+        <p class="preview-card__note">Accent variant for content categories (discipline, project type). Neutral for metadata (tool, year, platform). Interactive variant for filter UIs. Max 5 tags per component instance.</p>
+      </div>
+
+      <!-- Links -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Link Styles</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-6);">
+          <div class="state-item" style="align-items:flex-start;">
+            <p style="font-size:16px;color:var(--color-text-primary);">This project focused on reducing friction during <a href="#" class="link" onclick="return false;">the onboarding experience</a> for new users.</p>
+            <span class="state-label">Inline body link — underline animates in on hover</span>
+          </div>
+          <div class="state-item" style="align-items:flex-start;">
+            <a href="#" class="link" onclick="return false;" style="font-size:15px;">View Figma prototype ↗</a>
+            <span class="state-label">External link — arrow indicates opens new tab</span>
+          </div>
+          <div class="state-item" style="align-items:flex-start;">
+            <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;">
+              <a href="#" class="link link--nav" onclick="return false;">Work</a>
+              <a href="#" class="link link--nav" onclick="return false;">About</a>
+              <a href="#" class="link link--nav" onclick="return false;">Contact</a>
+            </div>
+            <span class="state-label">Navigation links — secondary color at rest</span>
+          </div>
+        </div>
+        <p class="preview-card__note">Inline links: accent color, animated underline on hover. External links always carry a ↗ arrow — no exceptions. Nav links use text-secondary at rest to avoid competing with page content.</p>
+      </div>
+
+      <!-- Dividers -->
+      <div class="preview-card">
+        <p class="preview-card__label">Dividers</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-8);">
+          <div class="state-item" style="align-items:stretch;width:100%;">
+            <hr class="divider" style="width:100%;">
+            <span class="state-label" style="margin-top:var(--space-3);">Hairline — section and card divisions</span>
+          </div>
+          <div class="state-item" style="align-items:stretch;width:100%;">
+            <div class="divider--labeled" style="width:100%;">Case Study</div>
+            <span class="state-label" style="margin-top:var(--space-3);">Labeled rule — section opener with category label</span>
+          </div>
+          <div class="state-item" style="align-items:flex-start;">
+            <div style="display:flex;gap:var(--space-3);align-items:center;">
+              <div style="width:28px;height:1px;background:var(--color-border-subtle);"></div>
+              <span style="font-size:12px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.04em;">or</span>
+              <div style="width:28px;height:1px;background:var(--color-border-subtle);"></div>
+            </div>
+            <span class="state-label" style="margin-top:var(--space-3);">Inline separator — between compact metadata items</span>
+          </div>
+        </div>
+        <p class="preview-card__note">Hairlines use border-subtle (#EDEAE3) — never darker. Labeled dividers set context without a full section header. Whitespace is always the preferred separator; use dividers only when visual separation is structurally necessary.</p>
+      </div>
+    </div>
+
+    <!-- 2C CARDS & CONTAINERS -->
+    <div class="subsection" id="cards">
+      <h3 class="subsection-title">2C — Cards &amp; Containers</h3>
+
+      <!-- Section Header -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Section Header</p>
+        <div class="grid-2">
+          <div>
+            <p class="state-label" style="margin-bottom:var(--space-5);">Left-aligned</p>
+            <div class="sec-header">
+              <p class="sec-header__eyebrow">Selected Work</p>
+              <h2 class="sec-header__headline" style="font-size:clamp(24px,3vw,36px);">Projects that moved<br>the needle.</h2>
+              <p class="sec-header__sub" style="font-size:15px;">End-to-end product design across mobile, web, and systems.</p>
+            </div>
+          </div>
+          <div style="background:var(--color-bg-dark);padding:var(--space-8);border-radius:var(--radius-xl);">
+            <p class="state-label" style="margin-bottom:var(--space-5);color:var(--color-text-tertiary);">Center-aligned (inverse)</p>
+            <div class="sec-header sec-header--center sec-header--inverse">
+              <p class="sec-header__eyebrow">Kind words</p>
+              <h2 class="sec-header__headline" style="font-size:clamp(22px,2.5vw,32px);">What collaborators say.</h2>
+              <p class="sec-header__sub" style="font-size:15px;">From PMs, engineers, and stakeholders.</p>
+            </div>
+          </div>
+        </div>
+        <p class="preview-card__note">Eyebrow: Label style (11px, uppercase, accent). Headline: Display LG in DM Serif. Sub: Body LG in Inter. Left-aligned for feature and content sections. Center-aligned for testimonials, CTAs, and section openers on dark backgrounds.</p>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Stat / Metric Card</p>
+        <div class="grid-3">
+          <div class="stat-card">
+            <p class="stat-card__value">4.8×</p>
+            <p class="stat-card__label">Increase in activation rate after onboarding redesign</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__icon">↑</p>
+            <p class="stat-card__value">62%</p>
+            <p class="stat-card__label">Reduction in support tickets within first 30 days</p>
+          </div>
+          <div class="stat-card stat-card--dark">
+            <p class="stat-card__value">$2.4M</p>
+            <p class="stat-card__label">Revenue attributed to redesigned checkout flow</p>
+          </div>
+        </div>
+        <p class="preview-card__note">Large number in DM Serif Display — the number does the speaking. Label is Body SM, always provides context, never just a unit. Optional directional icon. Dark variant for impact sections on dark surfaces.</p>
+      </div>
+
+      <!-- Testimonial Cards -->
+      <div class="preview-card mb-6">
+        <p class="preview-card__label">Testimonial Card</p>
+        <div class="grid-2">
+          <div class="t-card">
+            <p class="t-card__quote">"Yuan consistently bridged the gap between user needs and technical constraints — delivering design that felt inevitable in retrospect."</p>
+            <div class="t-card__author">
+              <div class="t-card__avatar">👤</div>
+              <div>
+                <p class="t-card__name">Alex Chen</p>
+                <p class="t-card__role">Product Manager · Acme Corp</p>
+              </div>
+            </div>
+          </div>
+          <div class="t-card">
+            <p class="t-card__quote">"One of the strongest design thinkers I've worked with. Every decision was rooted in data and real user insight."</p>
+            <div class="t-card__author">
+              <div class="t-card__avatar">👤</div>
+              <div>
+                <p class="t-card__name">Sarah Kim</p>
+                <p class="t-card__role">Engineering Lead · Startup Labs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="preview-card__note">Quote in 16px italic at 1.75 line-height. Author: avatar + name (600 weight) + role/company (secondary). White card on bg-subtle section. No star ratings, no decorative quote marks — let the words carry it.</p>
+      </div>
+
+      <!-- Mockup Containers -->
+      <div class="preview-card">
+        <p class="preview-card__label">Image / Mockup Container</p>
+        <div class="grid-3">
+          <div class="mockup mockup--light">
+            <div class="mockup__inner">
+              <p style="font-size:22px;">🖼</p>
+              <p class="mockup__ph">Light fill<br>bg-subtle</p>
+            </div>
+          </div>
+          <div class="mockup mockup--dark">
+            <div class="mockup__inner">
+              <p style="font-size:22px;">🖼</p>
+              <p class="mockup__ph">Dark fill<br>bg-dark-mid</p>
+            </div>
+          </div>
+          <div class="mockup mockup--border">
+            <div class="mockup__inner">
+              <p style="font-size:22px;">🖼</p>
+              <p class="mockup__ph" style="color:var(--color-text-tertiary);">Bordered<br>bg-surface</p>
+            </div>
+          </div>
+        </div>
+        <p class="preview-card__note">radius-3xl (32px) on all mockup containers. Aspect ratio enforced per context: 16/9 for wide mockups, 4/3 for product screens, 1/1 for detail shots. Dark fill for UI-heavy content; light fill for lifestyle or abstract visuals. Never crop UI art at arbitrary breakpoints.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- GALLERY FOOTER -->
+<footer class="gallery-footer">
+  <p>Design System Gallery · Foundations + Shared Components complete · Homepage, Case Study &amp; About components in Step 4</p>
+</footer>
+
+</body>
+</html>
