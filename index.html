@@ -348,6 +348,151 @@
       .hero__bio, .hero__actions, .hero__right, .hero__scroll { opacity: 1; }
     }
 
+    /* ═══════════════════════════════════════════
+       WORK SECTION — Wealthfront-inspired split
+       ═══════════════════════════════════════════ */
+    .work { background: var(--color-bg-base); }
+    .work__list { display: flex; flex-direction: column; }
+
+    /* 50/50 two-panel row */
+    .work__item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+      border-top: 1px solid rgba(0,0,0,0.10);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 540ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 540ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .work__item:last-child { border-bottom: 1px solid rgba(0,0,0,0.10); }
+    .work__item.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* Left — text content */
+    .work__left {
+      background: var(--color-bg-subtle);
+      padding: 80px 72px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    /* Right — colored visual panel */
+    .work__right {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding: 56px 48px;
+    }
+    .work__right--ink {
+      background: linear-gradient(135deg, #1C1265 0%, #2A1C90 50%, #3828B8 100%);
+    }
+    .work__right--sage {
+      background: linear-gradient(140deg, #9EC8B0 0%, #BCDECE 55%, #D8F0E0 100%);
+    }
+    .work__right--peach {
+      background: linear-gradient(140deg, #DCA898 0%, #ECCABC 55%, #F5E2D8 100%);
+    }
+    .work__right--lavender {
+      background: linear-gradient(140deg, #B8B2E0 0%, #CEC8F0 55%, #E2DDF8 100%);
+    }
+
+    /* Tags */
+    .work__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .work__tag {
+      display: inline-flex; align-items: center;
+      height: 28px; padding: 0 14px; border-radius: 9999px;
+      font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .work__tag--accent { background: var(--color-accent-light); color: var(--color-accent); }
+    .work__tag--neutral { background: rgba(13,11,24,.08); color: var(--color-text-secondary); }
+
+    /* Title */
+    .work__title {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 2.8vw, 46px);
+      font-weight: 400; line-height: 1.08; letter-spacing: -.025em;
+      color: var(--color-text-primary); margin-bottom: 18px;
+    }
+
+    /* Description */
+    .work__desc {
+      font-size: 16px; line-height: 1.68;
+      color: var(--color-text-secondary);
+      max-width: 44ch; margin-bottom: 28px;
+    }
+
+    /* Feature bullets — 2-col grid */
+    .work__features {
+      list-style: none;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px 32px; margin-bottom: 36px;
+    }
+    .work__feature { display: flex; align-items: flex-start; gap: 8px; }
+    .work__fi { color: var(--color-text-tertiary); flex-shrink: 0; margin-top: 2px; }
+    .work__feature span { font-size: 13px; line-height: 1.5; color: var(--color-text-secondary); }
+
+    /* CTA buttons */
+    .work__actions { display: flex; align-items: center; gap: 12px; }
+    .work__btn-primary {
+      display: inline-flex; align-items: center; height: 48px; padding: 0 26px;
+      background: var(--color-bg-dark); color: #fff;
+      font-size: 14px; font-weight: 600; letter-spacing: -.01em;
+      border-radius: 9999px; text-decoration: none;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .work__btn-primary:hover { background: var(--color-bg-dark-mid); transform: translateY(-1px); }
+    .work__btn-outline {
+      display: inline-flex; align-items: center; height: 48px; padding: 0 26px;
+      background: transparent; color: var(--color-text-primary);
+      font-size: 14px; font-weight: 600; letter-spacing: -.01em;
+      border-radius: 9999px; text-decoration: none;
+      border: 1.5px solid rgba(13,11,24,.22);
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .work__btn-outline:hover { border-color: var(--color-text-primary); background: rgba(0,0,0,.04); }
+
+    /* Phone mockup placeholder */
+    .work__mockup {
+      width: 248px;
+      background: #fff;
+      border-radius: 36px;
+      box-shadow: 0 24px 64px rgba(13,11,24,.18), 0 8px 24px rgba(13,11,24,.10);
+      aspect-ratio: 9 / 18;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .work__right--ink .work__mockup {
+      box-shadow: 0 24px 64px rgba(0,0,0,.40), 0 8px 24px rgba(0,0,0,.22);
+    }
+    .work__mockup img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .work__mpi {
+      width: 100%; height: 100%;
+      background: #F5F5F7;
+      padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .work__mp-top {
+      height: 44px; background: #fff; border-radius: 10px; margin-bottom: 4px;
+    }
+    .work__mp-ln { height: 8px; border-radius: 4px; background: #E0DDD8; }
+    .work__mp-ln--accent { background: var(--color-accent); opacity: .28; width: 65%; }
+    .work__mp-ln--short { width: 42%; }
+    .work__mp-block { flex: 1; background: #fff; border-radius: 12px; margin-top: 4px; }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .work__item { grid-template-columns: 1fr; }
+      .work__right { min-height: 380px; }
+      .work__left { padding: 56px 48px; }
+    }
+    @media (max-width: 640px) {
+      .work__left { padding: 48px 24px; }
+      .work__right { min-height: 300px; padding: 32px 24px; }
+      .work__features { grid-template-columns: 1fr; }
+      .work__mockup { width: 180px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .work__item { opacity: 1; transform: none; transition: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -466,11 +611,217 @@
   </section>
 
 
+  <!-- ═══════════════════════════════════════════
+       WORK SECTION
+       ═══════════════════════════════════════════ -->
+  <section id="work" class="work" aria-label="Selected work">
+    <div class="work__list">
+
+      <!-- ── 01 Flyhomes AI Broker ── -->
+      <article class="work__item">
+        <div class="work__left">
+          <div class="work__tags">
+            <span class="work__tag work__tag--accent">AI</span>
+            <span class="work__tag work__tag--neutral">Mobile</span>
+          </div>
+          <h3 class="work__title">Flyhomes AI Broker</h3>
+          <p class="work__desc">An AI chat feature designed to give home buyers instant, accurate answers to complex property questions — directly inside the search flow.</p>
+          <ul class="work__features">
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Natural language property Q&amp;A</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Integrated with live MLS data</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Context-aware follow-up questions</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Mobile-first conversational UI</span>
+            </li>
+          </ul>
+          <div class="work__actions">
+            <a href="#" class="work__btn-primary">View case study</a>
+            <a href="#" class="work__btn-outline">Learn more</a>
+          </div>
+        </div>
+        <div class="work__right work__right--ink">
+          <div class="work__mockup">
+            <!-- Add mockup: <img src="path/to/flyhomes-ai-broker.jpg" alt="Flyhomes AI Broker"> -->
+            <div class="work__mpi" aria-hidden="true">
+              <div class="work__mp-top"></div>
+              <div class="work__mp-ln work__mp-ln--accent"></div>
+              <div class="work__mp-ln"></div>
+              <div class="work__mp-ln work__mp-ln--short"></div>
+              <div class="work__mp-block"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 02 Flyhomes AI-based Home Search ── -->
+      <article class="work__item">
+        <div class="work__left">
+          <div class="work__tags">
+            <span class="work__tag work__tag--accent">AI</span>
+            <span class="work__tag work__tag--neutral">Web + Mobile</span>
+          </div>
+          <h3 class="work__title">Flyhomes AI Home Search</h3>
+          <p class="work__desc">An AI-powered feature that matches users with ideal homes based on their preferences — surfacing the right listings without manual filter work.</p>
+          <ul class="work__features">
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Preference-based home matching</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Cross-platform web and mobile</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Reduces friction of manual filters</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Recommendations improve with use</span>
+            </li>
+          </ul>
+          <div class="work__actions">
+            <a href="#" class="work__btn-primary">View case study</a>
+            <a href="#" class="work__btn-outline">Learn more</a>
+          </div>
+        </div>
+        <div class="work__right work__right--sage">
+          <div class="work__mockup">
+            <!-- Add mockup: <img src="path/to/flyhomes-home-search.jpg" alt="Flyhomes Home Search"> -->
+            <div class="work__mpi" aria-hidden="true">
+              <div class="work__mp-top"></div>
+              <div class="work__mp-ln work__mp-ln--accent"></div>
+              <div class="work__mp-ln"></div>
+              <div class="work__mp-ln work__mp-ln--short"></div>
+              <div class="work__mp-block"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 03 Redfin Deal Flow Manager ── -->
+      <article class="work__item">
+        <div class="work__left">
+          <div class="work__tags">
+            <span class="work__tag work__tag--accent">Internal Tool</span>
+            <span class="work__tag work__tag--neutral">Web</span>
+          </div>
+          <h3 class="work__title">Redfin Deal Flow Manager</h3>
+          <p class="work__desc">An internal operations tool that helps the RedfinNow team manage direct home acquisitions — reducing overhead and improving pipeline visibility.</p>
+          <ul class="work__features">
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Full deal pipeline visibility</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Document tracking and status</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Streamlines intake-to-close workflow</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Built for high-volume operations</span>
+            </li>
+          </ul>
+          <div class="work__actions">
+            <a href="#" class="work__btn-primary">View case study</a>
+            <a href="#" class="work__btn-outline">Learn more</a>
+          </div>
+        </div>
+        <div class="work__right work__right--peach">
+          <div class="work__mockup">
+            <!-- Add mockup: <img src="path/to/redfin-deal-flow.jpg" alt="Redfin Deal Flow Manager"> -->
+            <div class="work__mpi" aria-hidden="true">
+              <div class="work__mp-top"></div>
+              <div class="work__mp-ln work__mp-ln--accent"></div>
+              <div class="work__mp-ln"></div>
+              <div class="work__mp-ln work__mp-ln--short"></div>
+              <div class="work__mp-block"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 04 HomeX Remote Technician Service ── -->
+      <article class="work__item">
+        <div class="work__left">
+          <div class="work__tags">
+            <span class="work__tag work__tag--accent">Product</span>
+            <span class="work__tag work__tag--neutral">Mobile</span>
+          </div>
+          <h3 class="work__title">HomeX Remote Technician</h3>
+          <p class="work__desc">A product that connects homeowners with certified technicians via live video chat — enabling remote diagnosis before any in-person visit.</p>
+          <ul class="work__features">
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Live video chat with certified techs</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Remote diagnosis before in-person visit</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Reduces unnecessary service call costs</span>
+            </li>
+            <li class="work__feature">
+              <svg class="work__fi" width="13" height="13" fill="none" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.5 6.5h10M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Simple booking and instant availability</span>
+            </li>
+          </ul>
+          <div class="work__actions">
+            <a href="#" class="work__btn-primary">View case study</a>
+            <a href="#" class="work__btn-outline">Learn more</a>
+          </div>
+        </div>
+        <div class="work__right work__right--lavender">
+          <div class="work__mockup">
+            <!-- Add mockup: <img src="path/to/homex-remote-tech.jpg" alt="HomeX Remote Technician"> -->
+            <div class="work__mpi" aria-hidden="true">
+              <div class="work__mp-top"></div>
+              <div class="work__mp-ln work__mp-ln--accent"></div>
+              <div class="work__mp-ln"></div>
+              <div class="work__mp-ln work__mp-ln--short"></div>
+              <div class="work__mp-block"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
   <script>
     const nav = document.getElementById('site-nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('is-scrolled', window.scrollY > 20);
     }, { passive: true });
+
+    // Scroll-reveal for work items
+    const workItems = document.querySelectorAll('.work__item');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+    workItems.forEach(item => revealObs.observe(item));
   </script>
 
 </body>
