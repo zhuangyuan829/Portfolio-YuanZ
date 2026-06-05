@@ -463,6 +463,14 @@
     .work__mockup img {
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
+
+    /* Full-bleed cover — image already includes its own background and composition */
+    .work__right--cover { padding: 0; }
+    .work__cover {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
     .work__mpi {
       width: 100%; height: 100%;
       background: #F5F5F7;
@@ -649,17 +657,10 @@
             <a href="#" class="work__btn-outline">Learn more</a>
           </div>
         </div>
-        <div class="work__right work__right--ink">
-          <div class="work__mockup">
-            <!-- Add mockup: <img src="path/to/flyhomes-ai-broker.jpg" alt="Flyhomes AI Broker"> -->
-            <div class="work__mpi" aria-hidden="true">
-              <div class="work__mp-top"></div>
-              <div class="work__mp-ln work__mp-ln--accent"></div>
-              <div class="work__mp-ln"></div>
-              <div class="work__mp-ln work__mp-ln--short"></div>
-              <div class="work__mp-block"></div>
-            </div>
-          </div>
+        <div class="work__right work__right--cover">
+          <img class="work__cover"
+               src="Work%20section%20covers/Work%20section-AI-broker-cover.png"
+               alt="Flyhomes AI Broker — mobile chat interface answering a property question about high-voltage power lines">
         </div>
       </article>
 
