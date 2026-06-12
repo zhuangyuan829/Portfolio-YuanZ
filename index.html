@@ -471,6 +471,8 @@
       object-fit: cover; object-position: center;
       display: block;
     }
+    /* Zoom in when the composition sits small inside the artboard */
+    .work__cover--zoom { transform: scale(1.05); transform-origin: center; }
     .work__mpi {
       width: 100%; height: 100%;
       background: #F5F5F7;
@@ -696,17 +698,10 @@
             <a href="#" class="work__btn-outline">Learn more</a>
           </div>
         </div>
-        <div class="work__right work__right--sage">
-          <div class="work__mockup">
-            <!-- Add mockup: <img src="path/to/flyhomes-home-search.jpg" alt="Flyhomes Home Search"> -->
-            <div class="work__mpi" aria-hidden="true">
-              <div class="work__mp-top"></div>
-              <div class="work__mp-ln work__mp-ln--accent"></div>
-              <div class="work__mp-ln"></div>
-              <div class="work__mp-ln work__mp-ln--short"></div>
-              <div class="work__mp-block"></div>
-            </div>
-          </div>
+        <div class="work__right work__right--cover">
+          <img class="work__cover work__cover--zoom"
+               src="Work%20section%20covers/Work%20section-AI-Search-cover.png"
+               alt="Flyhomes AI Home Search — laptop showing search results with a phone displaying a listing detail, on sage backdrop">
         </div>
       </article>
 
@@ -742,17 +737,10 @@
             <a href="#" class="work__btn-outline">Learn more</a>
           </div>
         </div>
-        <div class="work__right work__right--peach">
-          <div class="work__mockup">
-            <!-- Add mockup: <img src="path/to/redfin-deal-flow.jpg" alt="Redfin Deal Flow Manager"> -->
-            <div class="work__mpi" aria-hidden="true">
-              <div class="work__mp-top"></div>
-              <div class="work__mp-ln work__mp-ln--accent"></div>
-              <div class="work__mp-ln"></div>
-              <div class="work__mp-ln work__mp-ln--short"></div>
-              <div class="work__mp-block"></div>
-            </div>
-          </div>
+        <div class="work__right work__right--cover">
+          <img class="work__cover work__cover--zoom"
+               src="Work%20section%20covers/Work%20section-Redfin-cover.png"
+               alt="Redfin Deal Flow Manager — desktop dashboard showing a deal pipeline with inspection statuses, on a purple-to-peach backdrop">
         </div>
       </article>
 
@@ -788,17 +776,10 @@
             <a href="#" class="work__btn-outline">Learn more</a>
           </div>
         </div>
-        <div class="work__right work__right--lavender">
-          <div class="work__mockup">
-            <!-- Add mockup: <img src="path/to/homex-remote-tech.jpg" alt="HomeX Remote Technician"> -->
-            <div class="work__mpi" aria-hidden="true">
-              <div class="work__mp-top"></div>
-              <div class="work__mp-ln work__mp-ln--accent"></div>
-              <div class="work__mp-ln"></div>
-              <div class="work__mp-ln work__mp-ln--short"></div>
-              <div class="work__mp-block"></div>
-            </div>
-          </div>
+        <div class="work__right work__right--cover">
+          <img class="work__cover work__cover--zoom"
+               src="Work%20section%20covers/Work%20section-HomeX-cover.png"
+               alt="HomeX Remote Technician — phone showing a live video chat with a technician over a smart thermostat, on a green backdrop">
         </div>
       </article>
 
