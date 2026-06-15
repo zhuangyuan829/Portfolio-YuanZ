@@ -503,6 +503,38 @@
       .work__item { opacity: 1; transform: none; transition: none; }
     }
 
+    /* ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ */
+    .footer {
+      background: var(--color-bg-base);
+      border-top: 1px solid var(--color-border-subtle);
+      padding: 72px 24px 64px;
+    }
+    .footer__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .footer__socials {
+      display: flex; align-items: center; gap: 24px;
+      margin-bottom: 28px;
+    }
+    .footer__social {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      color: var(--color-text-secondary);
+      transition: color .15s ease, transform .15s ease;
+    }
+    .footer__social:hover { color: var(--color-text-primary); transform: translateY(-2px); }
+    .footer__social svg { width: 20px; height: 20px; display: block; }
+    .footer__copy {
+      font-size: 14px; color: var(--color-text-tertiary); letter-spacing: -.01em;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .footer__social { transition: color .15s ease; }
+      .footer__social:hover { transform: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -632,6 +664,7 @@
         <div class="work__left">
           <div class="work__tags">
             <span class="work__tag work__tag--accent">AI</span>
+            <span class="work__tag work__tag--neutral">Web</span>
             <span class="work__tag work__tag--neutral">Mobile</span>
           </div>
           <h3 class="work__title">Flyhomes AI Broker</h3>
@@ -655,7 +688,7 @@
             </li>
           </ul>
           <div class="work__actions">
-            <a href="#" class="work__btn-primary">View case study</a>
+            <a href="ai-broker.html" class="work__btn-primary">View case study</a>
             <a href="#" class="work__btn-outline">Learn more</a>
           </div>
         </div>
@@ -786,6 +819,30 @@
     </div>
   </section>
 
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer" aria-label="Footer">
+    <div class="footer__inner">
+      <div class="footer__socials">
+        <a class="footer__social" href="https://www.linkedin.com/in/yuan-zhuang/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
+          </svg>
+        </a>
+        <a class="footer__social" href="https://yuanzhuang-69637.medium.com/amazon-rolls-out-an-app-update-heres-what-i-think-as-a-ux-designer-45a9f77bd925" target="_blank" rel="noopener noreferrer" aria-label="Medium">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42S20.96 8.46 20.96 12zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+          </svg>
+        </a>
+        <a class="footer__social" href="mailto:zhuangyuan1230@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m2 7 10 6 10-6"/>
+          </svg>
+        </a>
+      </div>
+      <p class="footer__copy">Yuan Zhuang 2026</p>
+    </div>
+  </footer>
 
   <script>
     const nav = document.getElementById('site-nav');
